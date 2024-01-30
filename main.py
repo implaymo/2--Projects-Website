@@ -1,11 +1,16 @@
 from flask import Flask, render_template
 from forms import Login, SignUp
-from flask_sqlalchemy import SQLAlchemy
+from database import db
 
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
 
+with app.app_context():
+    db.init_app(app)
+    db.create_all()
+    
 
 @app.route("/", methods=["POST", "GET"])
 def home():
