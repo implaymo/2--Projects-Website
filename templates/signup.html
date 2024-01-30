@@ -18,7 +18,7 @@
 </head>
 <body>
     <h2>Sign Up</h2>
-    <form method="POST" action="{{ url_for('home') }}">
+    <form method="POST" action="{{ url_for('signup') }}">
         <div>
             {{ form.username.label }}
             {{ form.username(class_="form-control", size=15) }}
