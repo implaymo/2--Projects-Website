@@ -30,9 +30,6 @@ def login():
 def signup():
     form = SignUp()
     if request.method == "POST":
-        print(request.form["username"])
-        print(request.form["email"])
-        print(request.form["password"])
         user = User(
             username=request.form["username"],
             email=request.form["email"],
