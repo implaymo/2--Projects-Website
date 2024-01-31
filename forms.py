@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, StringField, validators, PasswordField, SubmitField
+from wtforms import StringField, validators, PasswordField, SubmitField
 
 class SignUp(FlaskForm):
     username = StringField('Username', [validators.Length(max=25)])

@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 from forms import Login, SignUp
 from database import db, User
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user, current_user
 import os
 from dotenv import load_dotenv
 
@@ -20,37 +20,36 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.get(int(user_id))
 
 
 @app.route("/", methods=["POST", "GET"])
 def home():
-    return render_template('index.html')
+    return render_template('index.html', current_user=current_user)
 
 @app.route("/generic")
 def generic():
-    return render_template('generic.html')
+    return render_template('generic.html', current_user=current_user)
 
 @app.route("/elements")
 def elements():
-    return render_template('elements.html')
+    return render_template('elements.html', current_user=current_user)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
     form = Login()
     if form.validate_on_submit():
-        user = User.get_user_by_credentials(form.username.data, form.password.data)
+        user = db.one_or_404(db.select(User).filter_by(username=form.username.data))
         if user:
+            print("SUCCESS")
             login_user(user)
-            flash('You were successfully logged in')
             return redirect(url_for("home"))
-        elif not user:
-            flash("User not found. Sign up first!")
+        elif user is None:
+            print("ERROR1")
             return redirect(url_for("signup"))
         else:
-            flash("Invalid credentials")
-    else:
-        flash("Form validation failed", 'danger')
+            print("ERROR2")
+            return redirect(url_for("login"))
     return render_template('login.html', form=form)
 
 @app.route("/signup", methods=["POST", "GET"])
@@ -68,7 +67,10 @@ def signup():
         
     return render_template('signup.html', form=form)
 
-
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(debug=True)

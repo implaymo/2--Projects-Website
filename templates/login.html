@@ -7,8 +7,12 @@
           <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link active" aria-current="page">Home</a></li>
           <li class="nav-item"><a href="{{ url_for('generic') }}" class="nav-link">Generic</a></li>
           <li class="nav-item"><a href="{{ url_for('elements') }}" class="nav-link">Elements</a></li>
+          {% if current_user.is_authenticated %}
+          <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
+          {% else %}
           <li class="nav-item"><a href="{{ url_for('signup') }}" class="nav-link">Sign up</a></li>
-        </ul>
+          {% endif %}
+          </ul>
       </header>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,8 +22,9 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form method="POST" action="{{ url_for('home') }}">
+    <form method="POST" action="{{ url_for('login') }}">
         <div>
+            {{ form.csrf_token }}
             {{ form.username.label }}
             {{ form.username(class_="form-control", size=15) }}
         </div>

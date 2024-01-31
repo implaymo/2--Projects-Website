@@ -34,7 +34,11 @@
 								<li><a href="{{ url_for('generic') }}">Generic</a></li>
 								<li><a href="{{ url_for('elements') }}">Elements</a></li>
 								<li><a href="{{ url_for('login') }}">LogIn</a></li>
-								<li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+								{% if current_user.is_authenticated %}
+								<li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
+								{% else %}
+								<li class="nav-item"><a href="{{ url_for('signup') }}" class="nav-link">Sign up</a></li>
+								{% endif %}
 							</ul>
 							<a href="#" class="close">Close</a>
 						</div>
