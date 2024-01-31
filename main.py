@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for
 from forms import Login, SignUp
 from database import db, User
+from flask_login import LoginManager
+
+
+
 
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 with app.app_context():
     db.init_app(app) 
