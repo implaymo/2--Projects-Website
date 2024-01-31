@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from forms import Login, SignUp
 from database import db, User
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
@@ -37,18 +37,20 @@ def elements():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    error = None
     form = Login()
     if form.validate_on_submit():
-        user = db.one_or_404(db.select(User).filter_by(username=form.username.data))
-        if user:
-            print("SUCCESS")
-            login_user(user)
-            return redirect(url_for("home"))
-        elif user is None:
-            print("ERROR1")
-            return redirect(url_for("signup"))
-        else:
-            print("ERROR2")
+        try:
+            user = db.session.query(User).filter_by(username=form.username.data).one()
+            if user.password == form.password.data:
+                login_user(user)
+                flash("Login with success!")
+                return redirect(url_for("home"))
+            else:
+                error = "Wrong credentials. Try again!"
+                return redirect(url_for("signup"))
+        except Exception as e:
+            error = f"There was an error: {e}"
             return redirect(url_for("login"))
     return render_template('login.html', form=form)
 

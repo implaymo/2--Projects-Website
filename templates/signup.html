@@ -7,8 +7,11 @@
             <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link active" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="{{ url_for('generic') }}" class="nav-link">Generic</a></li>
             <li class="nav-item"><a href="{{ url_for('elements') }}" class="nav-link">Elements</a></li>
-            <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+            {% if current_user.is_authenticated %}
             <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+            {% endif %}
         </ul>
       </header>
     <meta charset="UTF-8">
