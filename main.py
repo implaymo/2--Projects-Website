@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from forms import Login, SignUp
 from database import db, User
-from flask_login import LoginManager, login_user, logout_user, current_user
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 import os
 from dotenv import load_dotenv
 
@@ -68,6 +68,7 @@ def signup():
     return render_template('signup.html', form=form)
 
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
