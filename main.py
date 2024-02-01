@@ -3,6 +3,7 @@ from forms import Login, SignUp
 from database import db, User
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from flask_bcrypt import Bcrypt 
+from functools import wraps
 import os
 from dotenv import load_dotenv
 
@@ -14,6 +15,14 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 bcrypt = Bcrypt(app) 
 
+def admin_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_admin:
+            return redirect(url_for("home")) 
+        return func(*args, **kwargs)
+    return wrapper
+
 
 with app.app_context():
     db.init_app(app) 
@@ -21,9 +30,12 @@ with app.app_context():
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -35,6 +47,7 @@ def generic():
     return render_template('generic.html', current_user=current_user)
 
 @app.route("/elements")
+@admin_required
 def elements():
     return render_template('elements.html', current_user=current_user)
 
@@ -45,7 +58,7 @@ def login():
     if form.validate_on_submit():
         try:
             user = db.session.query(User).filter_by(username=form.username.data).one()
-            if user.password == form.password.data:
+            if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
                 flash("Login with success!")
                 return redirect(url_for("home"))
