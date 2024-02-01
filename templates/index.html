@@ -71,7 +71,7 @@
 										<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 										{% if current_user.is_admin %}
 											<a href="#" class="special">Delete</a> 
-											<a href="#" class="special">Edit</a>
+											<a href="{{ url_for('edit')}}" class="special">Edit</a>
 										{% endif %}
 									</div>
 								</div>
@@ -87,7 +87,7 @@
 										<a href="https://github.com/implaymo/linkedin-automated-job-apply" class="special">Learn more</a>
 										{% if current_user.is_admin %}
 											<a href="#" class="special">Delete</a> 
-											<a href="#" class="special">Edit</a>
+											<a href="{{ url_for('edit')}}" class="special">Edit</a>
 										{% endif %}
 									</div>
 								</div>
@@ -103,7 +103,7 @@
 										<a href="https://github.com/implaymo/flask-authentication" class="special">Learn more</a>
 										{% if current_user.is_admin %}
 											<a href="#" class="special">Delete</a> 
-											<a href="#" class="special">Edit</a>
+											<a href="{{ url_for('edit')}}" class="special">Edit</a>
 										{% endif %}
 									</div>
 								</div>
@@ -119,7 +119,7 @@
 									<a href="https://github.com/implaymo/password-manager-/blob/master/main.py" class="special">Learn more</a>
 									{% if current_user.is_admin %}
 											<a href="#" class="special">Delete</a> 
-											<a href="#" class="special">Edit</a>
+											<a href="{{ url_for('edit')}}" class="special">Edit</a>
 									{% endif %}
 								</div>
 							</div>

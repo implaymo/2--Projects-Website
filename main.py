@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from forms import Login, SignUp
+from forms import Login, SignUp, Edit
 from database import db, User
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from flask_bcrypt import Bcrypt 
@@ -27,6 +27,7 @@ def admin_required(func):
 
 with app.app_context():
     db.init_app(app) 
+    db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -35,9 +36,6 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-
-
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -93,6 +91,21 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route("/edit", methods=["POST", "GET"])
+@admin_required
+def edit():
+    form = Edit()
+    if form.validate_on_submit():
+        post = Edit(
+            title = form.title.data,
+            content = form.content.data
+        )
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for("home"))
+    return render_template("edit.html", form=form) 
+
 
 if __name__ == "__main__":
     app.run(debug=True)
