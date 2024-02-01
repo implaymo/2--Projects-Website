@@ -19,7 +19,8 @@ def admin_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if not current_user.is_admin:
-            return redirect(url_for("home")) 
+            error = "User not allowed to see that page."
+            return render_template('index.html', current_user=current_user, error=error)
         return func(*args, **kwargs)
     return wrapper
 

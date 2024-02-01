@@ -48,6 +48,9 @@
 					<section id="banner">
 						<div class="inner">
 							<div class="logo"><span class="icon fa-gem"></span></div>
+							{% if error %}
+								<p style="color: red">{{ error }}</p>
+							{% endif %}
 							<h2>Project Explorer</h2>
 							<p>Embark on a journey through my diverse projects, blending creativity and innovation in education. Explore the realms of technology, design, and beyond in the Project Explorer's showcase.</p>
 						</div>
