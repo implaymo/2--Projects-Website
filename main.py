@@ -48,11 +48,11 @@ def login():
                 return redirect(url_for("home"))
             else:
                 error = "Wrong credentials. Try again!"
-                return redirect(url_for("signup"))
+                return render_template('login.html', form=form, error=error)
         except Exception as e:
             error = f"There was an error: {e}"
-            return redirect(url_for("login"))
-    return render_template('login.html', form=form)
+            return render_template('login.html', form=form, error=error)
+    return render_template('login.html', form=form, error=error)
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
