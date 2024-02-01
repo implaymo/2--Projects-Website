@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from forms import Login, SignUp
 from database import db, User
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from flask_bcrypt import Bcrypt 
 import os
 from dotenv import load_dotenv
 
@@ -10,6 +11,8 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 app.secret_key = os.getenv("SECRET_KEY")
+
+bcrypt = Bcrypt(app) 
 
 
 with app.app_context():
@@ -63,6 +66,8 @@ def signup():
             email=request.form["email"],
             password=request.form["password"]
             )
+        hashed_password = bcrypt.generate_password_hash(user.password).decode('utf-8')
+        user.password = hashed_password
         db.session.add(user)
         db.session.commit()
         return redirect(url_for("home"))
