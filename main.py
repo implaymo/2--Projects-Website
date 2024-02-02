@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from forms import Login, SignUp, Edit
-from database import db, User
+from database import db, User, Post
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from flask_bcrypt import Bcrypt 
 from functools import wraps
@@ -27,7 +27,6 @@ def admin_required(func):
 
 with app.app_context():
     db.init_app(app) 
-    db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -39,7 +38,8 @@ def load_user(user_id):
 
 @app.route("/", methods=["POST", "GET"])
 def home():
-    return render_template('index.html', current_user=current_user)
+    all_posts = Post.query.all()
+    return render_template('index.html', current_user=current_user, all_posts=all_posts)
 
 @app.route("/generic")
 def generic():
@@ -92,19 +92,29 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route("/edit", methods=["POST", "GET"])
+@app.route("/edit/<int:post_id>", methods=["POST", "GET"])
 @admin_required
-def edit():
-    form = Edit()
-    if form.validate_on_submit():
-        post = Edit(
-            title = form.title.data,
-            content = form.content.data
+def edit(post_id): 
+    ### search the post that want to edit
+    try: 
+        searched_post = Post.query.get(post_id)
+        print(searched_post)
+        ## populate the form with the content of searched_post
+        form = Edit(
+            title=searched_post.title,
+            content=searched_post.content
         )
-        db.session.add(post)
+    except Exception as e:
+        print(f"Error: {e}")
+
+    if form.validate_on_submit():
+        searched_post.title = form.title.data
+        searched_post.content = form.content.data
         db.session.commit()
+
         return redirect(url_for("home"))
-    return render_template("edit.html", form=form) 
+    
+    return render_template("edit.html", form=form, post_id=searched_post.id) 
 
 
 if __name__ == "__main__":

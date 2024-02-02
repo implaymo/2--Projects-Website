@@ -32,7 +32,9 @@
 							<ul class="links">
 								<li><a href="{{ url_for('home') }}">Home</a></li>
 								<li><a href="{{ url_for('generic') }}">Generic</a></li>
+								{% if current_user.is_admin %}
 								<li><a href="{{ url_for('elements') }}">Elements</a></li>
+								{% endif %}
 								<li><a href="{{ url_for('login') }}">LogIn</a></li>
 								{% if current_user.is_authenticated %}
 								<li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
@@ -63,64 +65,70 @@
 							<section id="one" class="wrapper spotlight style1">
 								<div class="inner">
 									<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
-
-
 									<div class="content">
-										<h2 class="major">Blog</h2>
-										<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
+										{% for post in all_posts %}
+											<h2 class="major">{{ post.title }}</h2>
+											<p>{{ post.content }}</p>
+											{% if current_user.is_admin %}
+												<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
+												<a href="#" class="special">Delete</a> 
+											{% endif %}
+										{% endfor %}
 										<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
-										{% if current_user.is_admin %}
-											<a href="#" class="special">Delete</a> 
-											<a href="{{ url_for('edit')}}" class="special">Edit</a>
-										{% endif %}
 									</div>
 								</div>
 							</section>
 
 						<!-- Two -->
-							<section id="two" class="wrapper alt spotlight style2">
-								<div class="inner">
-									<a href="#" class="image"><img src="https://i0.wp.com/gmlconsult.com/wp-content/uploads/2021/10/Illustration-of-Linkedin-icon-on-transparent-background-PNG.png?fit=1200%2C1200&ssl=1&w=640" alt="" /></a>
-									<div class="content">
-										<h2 class="major">LinkedIn automated job apply Bot</h2>
-										<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
-										<a href="https://github.com/implaymo/linkedin-automated-job-apply" class="special">Learn more</a>
+						<section id="one" class="wrapper spotlight style1">
+							<div class="inner">
+								<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
+								<div class="content">
+									{% for post in all_posts %}
+										<h2 class="major">{{ post.title }}</h2>
+										<p>{{ post.content }}</p>
 										{% if current_user.is_admin %}
+											<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
 											<a href="#" class="special">Delete</a> 
-											<a href="{{ url_for('edit')}}" class="special">Edit</a>
 										{% endif %}
-									</div>
+									{% endfor %}
+									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
-							</section>
+							</div>
+						</section>
 
 						<!-- Three -->
-							<section id="three" class="wrapper spotlight style3">
-								<div class="inner">
-									<a href="#" class="image"><img src="https://cdn0.iconfinder.com/data/icons/leto-blue-web-marketing-content-1/64/_-52-512.png" alt="" /></a>
-									<div class="content">
-										<h2 class="major">Flask Authentication</h2>
-										<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
-										<a href="https://github.com/implaymo/flask-authentication" class="special">Learn more</a>
+						<section id="one" class="wrapper spotlight style1">
+							<div class="inner">
+								<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
+								<div class="content">
+									{% for post in all_posts %}
+										<h2 class="major">{{ post.title }}</h2>
+										<p>{{ post.content }}</p>
 										{% if current_user.is_admin %}
+											<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
 											<a href="#" class="special">Delete</a> 
-											<a href="{{ url_for('edit')}}" class="special">Edit</a>
 										{% endif %}
-									</div>
+									{% endfor %}
+									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
-							</section>
+							</div>
+						</section>
 
 						<!-- Four -->
-						<section id="two" class="wrapper alt spotlight style2">
+						<section id="one" class="wrapper spotlight style1">
 							<div class="inner">
-								<a href="#" class="image"><img src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-and-shapes-5/177800/225-512.png" alt="" /></a>
+								<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
 								<div class="content">
-									<h2 class="major">Password Manager</h2>
-									<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
-									<a href="https://github.com/implaymo/password-manager-/blob/master/main.py" class="special">Learn more</a>
-									{% if current_user.is_admin %}
+									{% for post in all_posts %}
+										<h2 class="major">{{ post.title }}</h2>
+										<p>{{ post.content }}</p>
+										{% if current_user.is_admin %}
+											<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
 											<a href="#" class="special">Delete</a> 
-											<a href="{{ url_for('edit')}}" class="special">Edit</a>
-									{% endif %}
+										{% endif %}
+									{% endfor %}
+									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
 							</div>
 						</section>

@@ -17,7 +17,7 @@
 
 <h2>Edit Post</h2>
 
-<form method="POST" action="{{ url_for('edit') }}">
+<form method="POST" action="{{ url_for('edit', post_id=post_id) }}">
     {{ form.hidden_tag() }}
 <div>
     {{ form.csrf_token }}
