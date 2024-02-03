@@ -35,10 +35,10 @@
 								{% if current_user.is_admin %}
 									<li><a href="{{ url_for('elements') }}">Elements</a></li>
 								{% endif %}
-								<li><a href="{{ url_for('login') }}">Log In</a></li>
 								{% if current_user.is_authenticated %}
 								<li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
 								{% else %}
+								<li><a href="{{ url_for('login') }}">Login</a></li>
 								<li class="nav-item"><a href="{{ url_for('signup') }}" class="nav-link">Sign up</a></li>
 								{% endif %}
 							</ul>
