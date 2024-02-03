@@ -6,6 +6,9 @@ from flask_bcrypt import Bcrypt
 from functools import wraps
 import os
 from dotenv import load_dotenv
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
 
 load_dotenv()
 
@@ -15,6 +18,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
 
 bcrypt = Bcrypt(app) 
+
+with app.app_context():
+    db.init_app(app) 
+migrate = Migrate(app, db)
 
 def admin_required(func):
     @wraps(func)
@@ -26,8 +33,6 @@ def admin_required(func):
     return wrapper
 
 
-with app.app_context():
-    db.init_app(app) 
 
 login_manager = LoginManager()
 login_manager.init_app(app)
