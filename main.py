@@ -6,9 +6,6 @@ from flask_bcrypt import Bcrypt
 from functools import wraps
 import os
 from dotenv import load_dotenv
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
-
 
 load_dotenv()
 
@@ -21,7 +18,7 @@ bcrypt = Bcrypt(app)
 
 with app.app_context():
     db.init_app(app) 
-migrate = Migrate(app, db)
+
 
 def admin_required(func):
     @wraps(func)
@@ -115,6 +112,7 @@ def edit(post_id):
     if form.validate_on_submit():
         searched_post.title = form.title.data
         searched_post.content = form.content.data
+        searched_post.image = form.image.data
         db.session.commit()
 
         return redirect(url_for("home"))
