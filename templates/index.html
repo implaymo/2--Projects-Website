@@ -33,7 +33,7 @@
 								<li><a href="{{ url_for('home') }}">Home</a></li>
 								<li><a href="{{ url_for('generic') }}">Generic</a></li>
 								{% if current_user.is_admin %}
-								<li><a href="{{ url_for('elements') }}">Elements</a></li>
+									<li><a href="{{ url_for('elements') }}">Elements</a></li>
 								{% endif %}
 								{% if current_user.is_authenticated %}
 								<li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
@@ -62,77 +62,84 @@
 					<section id="wrapper">
 
 						<!-- One -->
-							<section id="one" class="wrapper spotlight style1">
-								<div class="inner">
-									<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
-									<div class="content">
-										{% for post in all_posts %}
-											<h2 class="major">{{ post.title }}</h2>
-											<p>{{ post.content }}</p>
-											{% if current_user.is_admin %}
-												<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-												<a href="#" class="special">Delete</a> 
-											{% endif %}
-										{% endfor %}
-										<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
-									</div>
-								</div>
-							</section>
-
-						<!-- Two -->
 						<section id="one" class="wrapper spotlight style1">
 							<div class="inner">
-								<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
+								{% for post in all_posts[:1] %}
+								<a href="{{ post.image }}" class="image">
+									<img src="{{ post.image }}" alt="" style="height: 200;" />
+								</a>
 								<div class="content">
-									{% for post in all_posts %}
-										<h2 class="major">{{ post.title }}</h2>
-										<p>{{ post.content }}</p>
-										{% if current_user.is_admin %}
-											<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-											<a href="#" class="special">Delete</a> 
-										{% endif %}
-									{% endfor %}
+									<h2 class="major">{{ post.title }}</h2>
+									<p>{{ post.content }}</p>
+									{% if current_user.is_admin %}
+									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
+									<a href="#" class="special">Delete</a>
+									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
+								{% endfor %}
+							</div>
+						</section>
+
+						<!-- Two -->
+						<section id="two" class="wrapper spotlight style1">
+							<div class="inner">
+								{% for post in all_posts[1:2] %}
+								<a href="{{ post.image }}" class="image">
+									<img src="{{ post.image }}" alt="" style="height: 200;" />
+								</a>
+								<div class="content">
+									<h2 class="major">{{ post.title }}</h2>
+									<p>{{ post.content }}</p>
+									{% if current_user.is_admin %}
+									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
+									<a href="#" class="special">Delete</a>
+									{% endif %}
+									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
+								</div>
+								{% endfor %}
 							</div>
 						</section>
 
 						<!-- Three -->
-						<section id="one" class="wrapper spotlight style1">
+						<section id="three" class="wrapper spotlight style1">
 							<div class="inner">
-								<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
+								{% for post in all_posts[2:3] %}
+								<a href="{{ post.image }}" class="image">
+									<img src="{{ post.image }}" alt="" style="height: 200;" />
+								</a>
 								<div class="content">
-									{% for post in all_posts %}
-										<h2 class="major">{{ post.title }}</h2>
-										<p>{{ post.content }}</p>
-										{% if current_user.is_admin %}
-											<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-											<a href="#" class="special">Delete</a> 
-										{% endif %}
-									{% endfor %}
+									<h2 class="major">{{ post.title }}</h2>
+									<p>{{ post.content }}</p>
+									{% if current_user.is_admin %}
+									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
+									<a href="#" class="special">Delete</a>
+									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
+								{% endfor %}
 							</div>
 						</section>
 
 						<!-- Four -->
-						<section id="one" class="wrapper spotlight style1">
+						<section id="four" class="wrapper spotlight style1">
 							<div class="inner">
-								<a href="" class="image"><img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="" style="height: 200;" /></a>
+								{% for post in all_posts[3:4] %}
+								<a href="{{ post.image }}" class="image">
+									<img src="{{ post.image }}" alt="" style="height: 200;" />
+								</a>
 								<div class="content">
-									{% for post in all_posts %}
-										<h2 class="major">{{ post.title }}</h2>
-										<p>{{ post.content }}</p>
-										{% if current_user.is_admin %}
-											<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-											<a href="#" class="special">Delete</a> 
-										{% endif %}
-									{% endfor %}
+									<h2 class="major">{{ post.title }}</h2>
+									<p>{{ post.content }}</p>
+									{% if current_user.is_admin %}
+									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
+									<a href="#" class="special">Delete</a>
+									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
+								{% endfor %}
 							</div>
 						</section>
-
 				<!-- Footer -->
 					<section id="footer">
 						<div class="inner">

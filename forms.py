@@ -15,4 +15,5 @@ class Login(FlaskForm):
 class Edit(FlaskForm):
     title = StringField('Title')
     content = TextAreaField('Content')
+    image = StringField("Image")
     submit = SubmitField('Submit') 

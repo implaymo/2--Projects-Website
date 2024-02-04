@@ -10,10 +10,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
-app.secret_key = os.getenv("SECRET_KEY")
+
 
 bcrypt = Bcrypt(app) 
+
+with app.app_context():
+    db.init_app(app) 
+
 
 def admin_required(func):
     @wraps(func)
@@ -25,8 +30,6 @@ def admin_required(func):
     return wrapper
 
 
-with app.app_context():
-    db.init_app(app) 
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -100,7 +103,8 @@ def edit(post_id):
         ## populate the form with the content of searched_post
         form = Edit(
             title=searched_post.title,
-            content=searched_post.content
+            content=searched_post.content,
+            image = searched_post.image
         )
     except Exception as e:
         print(f"Error: {e}")
@@ -108,6 +112,7 @@ def edit(post_id):
     if form.validate_on_submit():
         searched_post.title = form.title.data
         searched_post.content = form.content.data
+        searched_post.image = form.image.data
         db.session.commit()
 
         return redirect(url_for("home"))
