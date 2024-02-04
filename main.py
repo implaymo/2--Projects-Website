@@ -95,10 +95,8 @@ def logout():
 @app.route("/edit/<int:post_id>", methods=["POST", "GET"])
 @admin_required
 def edit(post_id): 
-    ### search the post that want to edit
     try: 
         searched_post = Post.query.get(post_id)
-        print(searched_post)
         ## populate the form with the content of searched_post
         form = Edit(
             title=searched_post.title,
