@@ -65,9 +65,10 @@
 					<section id="wrapper">
 
 						<!-- One -->
+						{% for post in all_posts %}
 						<section id="one" class="wrapper spotlight style1">
 							<div class="inner">
-								{% for post in all_posts[:1] %}
+						
 								<a href="{{ post.image }}" class="image">
 									<img src="{{ post.image }}" alt="" style="height: 200;" />
 								</a>
@@ -80,69 +81,11 @@
 									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
-								{% endfor %}
+								
 							</div>
 						</section>
+						{% endfor %}
 
-						<!-- Two -->
-						<section id="two" class="wrapper spotlight style1">
-							<div class="inner">
-								{% for post in all_posts[1:2] %}
-								<a href="{{ post.image }}" class="image">
-									<img src="{{ post.image }}" alt="" style="height: 200;" />
-								</a>
-								<div class="content">
-									<h2 class="major">{{ post.title }}</h2>
-									<p>{{ post.content }}</p>
-									{% if current_user.is_admin %}
-									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
-									{% endif %}
-									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
-								</div>
-								{% endfor %}
-							</div>
-						</section>
-
-						<!-- Three -->
-						<section id="three" class="wrapper spotlight style1">
-							<div class="inner">
-								{% for post in all_posts[2:3] %}
-								<a href="{{ post.image }}" class="image">
-									<img src="{{ post.image }}" alt="" style="height: 200;" />
-								</a>
-								<div class="content">
-									<h2 class="major">{{ post.title }}</h2>
-									<p>{{ post.content }}</p>
-									{% if current_user.is_admin %}
-									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
-									{% endif %}
-									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
-								</div>
-								{% endfor %}
-							</div>
-						</section>
-
-						<!-- Four -->
-						<section id="four" class="wrapper spotlight style1">
-							<div class="inner">
-								{% for post in all_posts[3:4] %}
-								<a href="{{ post.image }}" class="image">
-									<img src="{{ post.image }}" alt="" style="height: 200;" />
-								</a>
-								<div class="content">
-									<h2 class="major">{{ post.title }}</h2>
-									<p>{{ post.content }}</p>
-									{% if current_user.is_admin %}
-									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
-									{% endif %}
-									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
-								</div>
-								{% endfor %}
-							</div>
-						</section>
 				<!-- Footer -->
 					<section id="footer">
 						<div class="inner">
