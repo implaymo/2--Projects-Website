@@ -15,3 +15,4 @@ class Post(db.Model):
     title = db.Column(db.String(255))
     content = db.Column(db.Text)
     image = db.Column(db.String(255), default='default_image_url')
+    link = db.Column(db.String(255), default='default_link_url')

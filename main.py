@@ -14,6 +14,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
 
+
 bcrypt = Bcrypt(app) 
 
 with app.app_context():
@@ -104,7 +105,8 @@ def edit(post_id):
         form = Edit(
             title=searched_post.title,
             content=searched_post.content,
-            image = searched_post.image
+            image = searched_post.image,
+            link = searched_post.link
         )
     except Exception as e:
         print(f"Error: {e}")
@@ -113,6 +115,7 @@ def edit(post_id):
         searched_post.title = form.title.data
         searched_post.content = form.content.data
         searched_post.image = form.image.data
+        searched_post.link = form.link.data
         db.session.commit()
 
         return redirect(url_for("home"))
@@ -142,7 +145,8 @@ def add():
         new_post = Post(
             title=form.title.data,
             content=form.content.data,
-            image=form.image.data
+            image=form.image.data,
+            link=form.link.data
         )
         db.session.add(new_post)
         db.session.commit()

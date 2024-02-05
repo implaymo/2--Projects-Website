@@ -16,10 +16,12 @@ class Edit(FlaskForm):
     title = StringField('Title')
     content = TextAreaField('Content')
     image = StringField("Image")
+    link = StringField("Link")
     submit = SubmitField('Submit') 
     
 class Add(FlaskForm):
     title = StringField('Title')
     content = TextAreaField('Content')
     image = StringField("Image")
+    link = StringField("Link")
     submit = SubmitField('Submit') 

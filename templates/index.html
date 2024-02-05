@@ -79,7 +79,7 @@
 									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
 									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
 									{% endif %}
-									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
+									<a href="{{ post.link }}" class="special">Learn more</a>
 								</div>
 								
 							</div>
