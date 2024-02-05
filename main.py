@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from forms import Login, SignUp, Edit
+from forms import Login, SignUp, Edit, Add
 from database import db, User, Post
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from flask_bcrypt import Bcrypt 
@@ -119,6 +119,35 @@ def edit(post_id):
     
     return render_template("edit.html", form=form, post_id=searched_post.id) 
 
+
+@app.route("/delete/<int:post_id>", methods=["POST", "GET"])
+@admin_required
+def delete(post_id):
+    searched_post = None 
+    try:
+        searched_post = Post.query.get(post_id)
+    except Exception as e:
+        print(f"Error message: {e}")
+    finally:
+        if searched_post:
+            db.session.delete(searched_post)
+            db.session.commit()
+        return redirect(url_for("home"))
+    
+@app.route("/add", methods=["POST", "GET"])
+@admin_required
+def add():
+    form = Add()
+    if form.validate_on_submit():
+        new_post = Post(
+            title=form.title.data,
+            content=form.content.data,
+            image=form.image.data
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for("home"))
+    return render_template("add.html", form=form)
 
 if __name__ == "__main__":
     app.run(debug=True)

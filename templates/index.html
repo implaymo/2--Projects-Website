@@ -73,7 +73,7 @@
 									<p>{{ post.content }}</p>
 									{% if current_user.is_admin %}
 									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="#" class="special">Delete</a>
+									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
 									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
@@ -93,7 +93,7 @@
 									<p>{{ post.content }}</p>
 									{% if current_user.is_admin %}
 									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="#" class="special">Delete</a>
+									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
 									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
@@ -113,7 +113,7 @@
 									<p>{{ post.content }}</p>
 									{% if current_user.is_admin %}
 									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="#" class="special">Delete</a>
+									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
 									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
@@ -133,7 +133,7 @@
 									<p>{{ post.content }}</p>
 									{% if current_user.is_admin %}
 									<a href="{{ url_for('edit', post_id=post.id) }}" class="special">Edit</a>
-									<a href="#" class="special">Delete</a>
+									<a href="{{ url_for('delete', post_id=post.id) }}" class="special">Delete</a>
 									{% endif %}
 									<a href="https://github.com/implaymo/Blog-Final-Project" class="special">Learn more</a>
 								</div>
