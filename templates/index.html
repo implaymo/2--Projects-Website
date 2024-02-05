@@ -55,6 +55,9 @@
 							{% endif %}
 							<h2>Project Explorer</h2>
 							<p>Embark on a journey through my diverse projects, blending creativity and innovation in education. Explore the realms of technology, design, and beyond in the Project Explorer's showcase.</p>
+							{% if current_user.is_admin %}
+							<a href="{{ url_for('add') }}" class="special">Add</a>
+							{% endif %}
 						</div>
 					</section>
 
