@@ -6,6 +6,9 @@ from flask_bcrypt import Bcrypt
 from functools import wraps
 import os
 from dotenv import load_dotenv
+from memesapi import all_memes
+import random
+from random import choice
 
 load_dotenv()
 
@@ -52,7 +55,8 @@ def generic():
 @app.route("/elements")
 @admin_required
 def elements():
-    return render_template('elements.html', current_user=current_user)
+    random_meme = random.choice(all_memes)
+    return render_template('elements.html', current_user=current_user, random_meme=random_meme)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
